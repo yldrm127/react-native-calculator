@@ -1,70 +1,70 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+import { StyleSheet, SafeAreaView, View } from "react-native";
+import Form from "../../components/Form"
+import Keys from "@/components/Keys";
+interface InitialValue {
+  id: number;
+  text: string;
+  style?: any;
 }
-
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  contianer: {
+    flex: 1,
+    backgroundColor: "black",
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  buttonGroup: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+    marginTop: 10,
+    gap: 5,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  C: {
+    color: "red",
+  },
+  operator: {
+    color: "green",
+  },
+  result: {
+    backgroundColor: "green",
+  },
+  zero: {
+    width: 180,
   },
 });
+const initialValues: InitialValue[] = [
+  { id: 1, text: "C", style: styles.C },
+  { id: 2, text: "()", style: styles.operator },
+  { id: 3, text: "%", style: styles.operator },
+  { id: 4, text: "/", style: styles.operator },
+  { id: 5, text: "7" },
+  { id: 6, text: "8" },
+  { id: 7, text: "9" },
+  { id: 8, text: "x", style: styles.operator },
+  { id: 9, text: "4" },
+  { id: 10, text: "5" },
+  { id: 11, text: "6" },
+  { id: 12, text: "-", style: styles.operator },
+  { id: 13, text: "1" },
+  { id: 14, text: "2" },
+  { id: 15, text: "3" },
+  { id: 16, text: "+", style: styles.operator },
+  { id: 17, text: "0", style: styles.zero },
+  { id: 18, text: "." },
+  { id: 19, text: "=", style: styles.result },
+];
+export default function HomeScreen() {
+  
+  return (
+    <SafeAreaView style={styles.contianer}>
+     <Form/>
+      <View style={styles.buttonGroup}>
+        {initialValues.map((index) => (
+          <Keys key={index.id} index={index} />
+        ))}
+      </View>
+    </SafeAreaView>
+  );
+}
